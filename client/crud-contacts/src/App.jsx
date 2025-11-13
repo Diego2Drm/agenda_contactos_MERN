@@ -1,5 +1,5 @@
-import { Form } from "./Form"
-import { Header } from "./Hedaer"
+import { Form } from "./components/Form"
+import { Header } from "./components/Hedaer"
 
 function App() {
 
