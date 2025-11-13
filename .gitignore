@@ -1,0 +1,32 @@
+# Ignorar node_modules en cualquier subproyecto
+**/node_modules/
+
+# Carpetas de build (Vite, CRA, Next, etc.)
+**/dist/
+**/build/
+
+# Archivos temporales
+*.log
+*.tmp
+*.swp
+
+# Dependencias bloqueadas
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# IDEs (VSCode, WebStorm, etc.)
+.vscode/
+.idea/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Otros
+*.orig
