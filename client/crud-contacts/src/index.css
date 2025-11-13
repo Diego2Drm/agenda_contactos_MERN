@@ -3,4 +3,40 @@
 @theme {
   --color-primary: #2E1F1B;
   --color-secondary: #5E4B43;
+
+    /* Neutros claros para contraste */
+  --color-neutral-light: #F5F2F0;
+  --color-neutral-sand: #E0D6D0;
+
+  /* Complementarios cálidos */
+  --color-accent-warm: #C9A27D;  /* dorado arena */
+  --color-accent-cream: #D4BFAA;
+
+  /* Contrastes fríos */
+  --color-accent-green: #3A5A40; /* verde bosque */
+  --color-accent-blue: #4A6FA5;  /* azul grisáceo */
+}
+
+body {
+  @apply bg-linear-to-l bg-secondary to-primary p-10
+}
+
+/* Form */
+form {
+  @apply flex flex-col gap-5 my-10
+}
+.label__user {
+  @apply flex
+}
+.label__user span {
+  @apply bg-accent-blue p-2 rounded-tl-lg rounded-bl-lg
+}
+.label__user input {
+  @apply bg-neutral-sand pl-4 w-full rounded-tr-lg rounded-br-lg focus:outline-neutral-light
+}
+form div {
+  @apply flex flex-col gap-3 border-2 border-accent-blue p-5 rounded-xl
+}
+form div label span {
+  @apply ml-3 text-neutral-sand font-semibold text-sm
 }
