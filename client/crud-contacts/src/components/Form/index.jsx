@@ -2,8 +2,8 @@ import React from 'react'
 import { useCrudContext } from '../../Hooks/useCrudContext';
 
 function Form() {
-  const { handleSubmit, name, addName, addEmail,
-    addPhone, chooseGenre } = useCrudContext()
+  const { handleSubmit, addName, addEmail,
+    addPhone, chooseGenre, name, email, phone, genre } = useCrudContext()
 
   return (
     <div>
@@ -14,6 +14,7 @@ function Form() {
           <input type="text" name="name" placeholder='Nombre...'
             onChange={addName}
             required
+            value={name}
           />
         </label>
 
@@ -21,7 +22,7 @@ function Form() {
           <span><i className="fa-solid fa-envelope"></i></span>
           <input type="text" name="email" placeholder='Correo electronico...'
             onChange={addEmail}
-            required
+            value={email}
           />
         </label>
 
@@ -30,14 +31,16 @@ function Form() {
           <input type="text" name="phone" placeholder='Numero de telefono...'
             onChange={addPhone}
             required
+            value={phone}
           />
         </label>
 
-        <div>
+        <div className='form-genre'>
           <h3 className='text-accent-warm font-semibold italic'>Escoge el Género</h3>
           <label>
             <input type="radio" name="genero" value="masculino"
               onChange={chooseGenre}
+              checked={genre === 'masculino'}
             />
             <span> Masculino</span>
           </label>
@@ -45,6 +48,7 @@ function Form() {
           <label>
             <input type="radio" name="genero" value="femenino"
               onChange={chooseGenre}
+              checked={genre === 'femenino'}
             />
             <span> Femenino</span>
           </label>
@@ -52,12 +56,19 @@ function Form() {
           <label>
             <input type="radio" name="genero" value="no_especificar"
               onChange={chooseGenre}
+              checked={genre === 'no_especificar'}
             />
             <span> Prefiero no especificar</span>
           </label>
         </div>
 
-        <button type="submit">Agregar Contacto</button>
+        <div className='md:flex md:justify-center'>
+          <button
+            type="submit"
+            className='bg-accent-blue py-2 rounded-lg text-white hover:shadow-lg hover:shadow-neutral-light duration-200 ease-in-out cursor-pointer w-full md:w-96'>
+            Agregar Contacto
+          </button>
+        </div>
       </form>
     </div>
   )

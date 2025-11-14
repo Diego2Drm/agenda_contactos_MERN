@@ -1,5 +1,6 @@
 import { Form } from "./components/Form"
 import { Header } from "./components/Hedaer"
+import { Users } from "./components/Users"
 
 function App() {
 
@@ -7,7 +8,8 @@ function App() {
     <>
       <section>
         <Header />
-        <Form /> 
+        <Form />
+        <Users />
       </section>
     </>
   )

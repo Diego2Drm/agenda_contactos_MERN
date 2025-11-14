@@ -34,9 +34,25 @@ form {
 .label__user input {
   @apply bg-neutral-sand pl-4 w-full rounded-tr-lg rounded-br-lg focus:outline-neutral-light
 }
-form div {
+form .form-genre {
   @apply flex flex-col gap-3 border-2 border-accent-blue p-5 rounded-xl
 }
 form div label span {
   @apply ml-3 text-neutral-sand font-semibold text-sm
+}
+
+/* Table */
+table thead{
+  @apply bg-accent-blue text-white 
+}
+table tbody {
+  @apply bg-accent-warm text-primary font-bold
+}
+
+/* Cards */
+.cards-text{
+  @apply font-semibold italic
+}
+.cards-span{
+  @apply text-secondary font-bold mr-1 font-mono
 }
