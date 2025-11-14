@@ -25,7 +25,7 @@ function Users() {
               <tr key={index}>
                 <td className="border px-4 py-2">{user.name}</td>
                 <td className="border px-4 py-2">{user.email}</td>
-                <td className="border px-4 py-2">{user.phone}</td>
+                <td className="border px-4 py-2">{user.phone_number}</td>
                 <td className="border px-4 py-2">{user.genre}</td>
                 <td className="border px-4 py-2">
                   <Buttons />

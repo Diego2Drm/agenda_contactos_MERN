@@ -19,17 +19,18 @@ const CrudContextProvider = ({ children }) => {
     setGenre(e.target.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const newUser = {
-      name,
-      email,
-      phone,
-      genre
-    };
-    setUsers([...users, newUser]);
+    // const newUser = {
+    //   name,
+    //   email,
+    //   phone,
+    //   genre
+    // };
+    // setUsers([...users, newUser]);
     cleanData();
-    addContact();
+    await addContact();
+    await getContacts();
   }
 
   const cleanData = () => {
@@ -54,6 +55,19 @@ const CrudContextProvider = ({ children }) => {
     }
   }
 
+  const getContacts = async () => {
+    try {
+      await Axios.get('http://localhost:3000/contacts').
+        then(res => { setUsers(res.data) })
+    } catch (error) {
+      console.error('Data not Found', error);
+    }
+  }
+
+  useEffect(() => {
+    getContacts();
+  }, [])
+
   const value = {
     name,
     handleSubmit,
@@ -67,8 +81,6 @@ const CrudContextProvider = ({ children }) => {
     genre,
     users
   }
-
-
 
   return (
     <CrudContext.Provider value={value}>

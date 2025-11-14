@@ -16,7 +16,7 @@ function Cards({ users }) {
           </p>
 
           <p className='cards-text'>
-            <span className='cards-span '>Numero:</span> {user.phone}
+            <span className='cards-span '>Numero:</span> {user.phone_number}
           </p>
 
           <p className='capitalize cards-text mb-5'>
