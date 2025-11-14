@@ -37,6 +37,17 @@ app.post('/contacts', (req, res) => {
     })
 })
 
+app.get('/contacts', (req, res) => {
+  db.query('SELECT id,name,email,phone_number,genre FROM contact_list',
+    (err, result) => {
+      if (err) {
+        console.log('Data Not Found', err);
+      } else {
+        res.send(result)
+      }
+    }
+  )
+})
 
 const PORT = process.env.PORT ?? 3000;
 
