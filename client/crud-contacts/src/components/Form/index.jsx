@@ -3,7 +3,7 @@ import { useCrudContext } from '../../Hooks/useCrudContext';
 
 function Form() {
   const { handleSubmit, addName, addEmail,
-    addPhone, chooseGenre, name, email, phone, genre } = useCrudContext()
+    addPhone, chooseGenre, name, email, phone, genre, edit, cleanData } = useCrudContext()
 
   return (
     <div>
@@ -62,11 +62,25 @@ function Form() {
           </label>
         </div>
 
-        <div className='md:flex md:justify-center'>
-          <button
-            type="submit"
-            className='bg-accent-blue py-2 rounded-lg text-white hover:shadow-lg hover:shadow-neutral-light duration-200 ease-in-out cursor-pointer w-full md:w-96'>
-            Agregar Contacto
+        <div className='md:flex md:justify-center gap-5'>
+          {
+            edit ? <button
+              type="submit"
+              className='bg-accent-green py-2 rounded-lg text-white hover:shadow-lg hover:shadow-neutral-light duration-200 ease-in-out cursor-pointer w-full md:w-96'>
+              Editar Contacto
+            </button>
+              :
+              <button
+                type="submit"
+                className='bg-accent-blue py-2 rounded-lg text-white hover:shadow-lg hover:shadow-neutral-light duration-200 ease-in-out cursor-pointer w-full md:w-96'>
+                Agregar Contacto
+              </button>
+          }
+
+          <button type='button' onClick={cleanData}
+            className='bg-red-800 py-2 rounded-lg text-white hover:shadow-lg hover:shadow-neutral-light duration-200 ease-in-out cursor-pointer w-full md:w-96 mt-5 md:mt-0'
+          >
+            Cancelar
           </button>
         </div>
       </form>

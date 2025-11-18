@@ -1,11 +1,13 @@
 import React from 'react'
 import { Buttons } from '../Buttons';
+import { useCrudContext } from '../../Hooks/useCrudContext';
 
 function Cards({ users }) {
+  const { editContact } = useCrudContext();
   return (
     <div className="block md:hidden space-y-8 cards">
-      {users.map((user, index) => (
-        <div key={index} className="p-4 rounded-xl shadow-lg shadow-neutral-sand bg-accent-warm">
+      {users.map((user) => (
+        <div key={user.id} className="p-4 rounded-xl shadow-lg shadow-neutral-sand bg-accent-warm">
 
           <p className='capitalize cards-text'>
             <span className='cards-span'>Nombre:</span> {user.name}
@@ -23,7 +25,7 @@ function Cards({ users }) {
             <span className='cards-span'>Género:</span> {user.genre}
           </p>
 
-          <Buttons />
+          <Buttons handleEdit={() => editContact(user)} />
         </div>
       ))}
     </div>
