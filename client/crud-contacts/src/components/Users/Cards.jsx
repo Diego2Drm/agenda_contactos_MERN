@@ -3,7 +3,7 @@ import { Buttons } from '../Buttons';
 import { useCrudContext } from '../../Hooks/useCrudContext';
 
 function Cards({ users }) {
-  const { editContact } = useCrudContext();
+  const { editContact, deleteContact } = useCrudContext();
   return (
     <div className="block md:hidden space-y-8 cards">
       {users.map((user) => (
@@ -25,7 +25,7 @@ function Cards({ users }) {
             <span className='cards-span'>Género:</span> {user.genre}
           </p>
 
-          <Buttons handleEdit={() => editContact(user)} />
+          <Buttons handleEdit={() => editContact(user)} handleDelete={() => deleteContact(user.id)} />
         </div>
       ))}
     </div>

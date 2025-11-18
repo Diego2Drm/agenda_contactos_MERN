@@ -51,7 +51,8 @@ const CrudContextProvider = ({ children }) => {
     setEdit(false);
   };
 
-  // ROUTES
+  // ROUTES --> CRUD <------------
+  // POST --> CREATE
   const addContact = async () => {
     try {
       await Axios.post('http://localhost:3000/contacts', {
@@ -68,6 +69,7 @@ const CrudContextProvider = ({ children }) => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // GET --> READ
   const getContacts = async () => {
     try {
       await Axios.get('http://localhost:3000/contacts').
@@ -82,6 +84,7 @@ const CrudContextProvider = ({ children }) => {
     getContacts();
   }, [])
 
+  // PATCH/PUT --> EDIT
   const [edit, setEdit] = useState(false);
   const [getID, setGetId] = useState(null);
   const editContact = (val) => {
@@ -110,6 +113,18 @@ const CrudContextProvider = ({ children }) => {
     }
   }
 
+  // DELETE --> DELETE
+  const deleteContact = (id) => {
+    Axios.delete(`http://localhost:3000/contacts/${id}`)
+      .then(() => {
+        getContacts()
+      })
+
+  }
+
+
+
+  // ---------->
   const value = {
     name,
     handleSubmit,
@@ -126,6 +141,7 @@ const CrudContextProvider = ({ children }) => {
     edit,
     editContact,
     cleanData,
+    deleteContact,
   }
 
   return (
