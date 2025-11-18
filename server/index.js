@@ -76,6 +76,21 @@ app.patch('/contacts/:id', (req, res) => {
   )
 })
 
+app.delete('/contacts/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.query('DELETE FROM  contact_list WHERE id=?',
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result)
+      }
+    }
+  )
+})
+
 const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
