@@ -3,7 +3,7 @@ import { useCrudContext } from '../../Hooks/useCrudContext';
 
 function Form() {
   const { handleSubmit, addName, addEmail,
-    addPhone, chooseGenre, name, email, phone, genre, edit, cleanData } = useCrudContext()
+    addPhone, chooseGenre, name, email, phone, genre, edit, cleanData, errorsInputs } = useCrudContext()
 
   return (
     <div>
@@ -13,10 +13,14 @@ function Form() {
           <span><i className="fa-solid fa-user"></i></span>
           <input type="text" name="name" placeholder='Nombre...'
             onChange={addName}
-            required
+
             value={name}
           />
         </label>
+        {
+          errorsInputs.properties?.name &&
+          <span className='text-red-500'>{errorsInputs.properties?.name?.errors[0]}</span>
+        }
 
         <label className='label__user'>
           <span><i className="fa-solid fa-envelope"></i></span>
@@ -25,15 +29,23 @@ function Form() {
             value={email}
           />
         </label>
+        {
+          errorsInputs.properties?.email &&
+          <span className='text-red-500'>{errorsInputs.properties?.email?.errors[0]}</span>
+        }
 
         <label className='label__user'>
           <span><i className="fa-solid fa-phone"></i></span>
           <input type="text" name="phone" placeholder='Numero de telefono...'
             onChange={addPhone}
-            required
+
             value={phone}
           />
         </label>
+        {
+          errorsInputs.properties?.phone_number &&
+          <span className='text-red-500'>{errorsInputs.properties?.phone_number?.errors[0]}</span>
+        }
 
         <div className='form-genre'>
           <h3 className='text-accent-warm font-semibold italic'>Escoge el Género</h3>
@@ -60,7 +72,11 @@ function Form() {
             />
             <span> Prefiero no especificar</span>
           </label>
+
         </div>
+        {errorsInputs.properties?.genre?.errors[0] && (
+          <span className='text-red-500'>{errorsInputs.properties.genre.errors[0]}</span>
+        )}
 
         <div className='md:flex md:justify-center gap-5'>
           {

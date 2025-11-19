@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import Axios from 'axios'
+import { validateContact, validatePartialContact } from "../schemas/formSchemas";
+import { z } from 'zod'
 
 const CrudContext = createContext();
 
@@ -39,7 +41,6 @@ const CrudContextProvider = ({ children }) => {
       console.error('Taks not add', err);
     }
 
-    cleanData();
     await getContacts();
   }
 
@@ -53,15 +54,29 @@ const CrudContextProvider = ({ children }) => {
 
   // ROUTES --> CRUD <------------
   // POST --> CREATE
+  const [errorsInputs, setErrorsInputs] = useState([]);
   const addContact = async () => {
+
+    const result = validateContact({
+      name: name,
+      email: email,
+      phone_number: phone,
+      genre: genre
+    })
+
+    if (!result.success) {
+      const formattedErros = z.treeifyError(result.error);
+      setErrorsInputs(formattedErros);
+      console.error("Errores de validación", formattedErros);
+      return;
+    }
+
+    setErrorsInputs([]);
+
     try {
-      await Axios.post('http://localhost:3000/contacts', {
-        name: name,
-        email: email,
-        phone_number: phone,
-        genre: genre
-      });
+      await Axios.post('http://localhost:3000/contacts', result.data);
       console.log('Add Contact ✅');
+      cleanData();
     } catch (error) {
       console.error('Not add ❌', error);
     }
@@ -97,15 +112,27 @@ const CrudContextProvider = ({ children }) => {
   }
 
   const patchContact = async (id) => {
+
+    const result = validatePartialContact({
+      name: name,
+      email: email,
+      phone_number: phone,
+      genre: genre
+    })
+
+    if (!result.success) {
+      const formattedErros = z.treeifyError(result.error);
+      setErrorsInputs(formattedErros);
+      console.error("Errores de validación", formattedErros);
+      return;
+    }
+
+    setErrorsInputs([]);
     try {
-      await Axios.patch(`http://localhost:3000/contacts/${id}`, {
-        name: name,
-        email: email,
-        phone_number: phone,
-        genre: genre
-      }).then(() => {
+      await Axios.patch(`http://localhost:3000/contacts/${id}`, result.data).then(() => {
         setEdit(false);
         setGetId(null);
+        cleanData();
         getContacts();
       })
     } catch (error) {
@@ -123,8 +150,8 @@ const CrudContextProvider = ({ children }) => {
   }
 
 
-
   // ---------->
+
   const value = {
     name,
     handleSubmit,
@@ -142,6 +169,7 @@ const CrudContextProvider = ({ children }) => {
     editContact,
     cleanData,
     deleteContact,
+    errorsInputs,
   }
 
   return (
