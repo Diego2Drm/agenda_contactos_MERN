@@ -27,12 +27,17 @@ app.post('/contacts', (req, res) => {
   const phone_number = req.body.phone_number;
   const genre = req.body.genre;
 
+  if (!name?.trim() || !email?.trim() || !phone_number?.toString().trim() || !genre?.trim()) {
+    return res.status(400).json({ message: "Todos los campos son obligatorios." });
+  }
+
   db.query('INSERT INTO contact_list (name,email,phone_number,genre) VALUES(?,?,?,?)', [name, email, phone_number, genre],
     (err, result) => {
       if (err) {
         console.log(err);
+        return res.status(500).json({ message: "Error interno del servidor." });
       } else {
-        res.send('Add Contact')
+        res.status(201).json({ message: "Contacto agregado correctamente ✅" });
       }
     })
 })
