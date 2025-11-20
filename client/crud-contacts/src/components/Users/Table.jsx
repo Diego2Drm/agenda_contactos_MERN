@@ -3,7 +3,7 @@ import { Buttons } from '../Buttons'
 import { useCrudContext } from '../../Hooks/useCrudContext';
 
 function Table({ users }) {
-  const { editContact, deleteContact } = useCrudContext()
+  const { editContact, deleteContact, getID } = useCrudContext()
 
   return (
     <div className='hidden md:block'>
@@ -19,7 +19,7 @@ function Table({ users }) {
         </thead>
         <tbody >
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr key={user.id} className={`${getID === user.id ? 'bg-accent-green text-white' : ''}`}>
               <td className="border px-4 py-2">{user.name}</td>
               <td className="border px-4 py-2">{user.email}</td>
               <td className="border px-4 py-2">{user.phone_number}</td>
