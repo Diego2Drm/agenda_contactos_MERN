@@ -231,14 +231,29 @@ const CrudContextProvider = ({ children }) => {
 
   const handleSearch = (e) => setSearch(e.target.value)
 
-  useEffect(() => {
-    if (search.trim() === '') {
-      setFilterContacts([])
-    } else {
-      const filtered = users.filter(user => user.name.toLowerCase().includes(search.toLowerCase()))
-      setFilterContacts(filtered)
-    }
-  }, [search, users])
+  // const handleFilter = () => {
+  //   const filterd = users.some(user => user.name === search)
+  //   setFilterContacts(filterd)
+  // }
+  // console.log(filterContacts);
+
+  // const handleSearch = (e) => {
+  //   const value = e.target.value;
+  //   setSearch(value);
+
+  //   // Filtrar automáticamente al escribir
+  //   const filtered = users.filter(user =>
+  //     user.name.toLowerCase().includes(value.toLowerCase())
+  //   );
+  //   setFilterContacts(filtered);
+  // };
+
+  const handleFilter = () => {
+    const filtered = users.filter(user =>
+      user.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilterContacts(filtered);
+  };
 
   const value = {
     name,
@@ -259,7 +274,7 @@ const CrudContextProvider = ({ children }) => {
     cleanData,
     deleteContact,
     errorsInputs,
-    search,
+    handleFilter,
     handleSearch,
     filterContacts
   }

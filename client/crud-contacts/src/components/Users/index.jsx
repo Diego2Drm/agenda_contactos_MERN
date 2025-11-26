@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCrudContext } from '../../Hooks/useCrudContext';
+import { useCrudContext } from '../../hooks/useCrudContext';
 import { Cards } from './Cards';
 import { Table } from './Table';
 

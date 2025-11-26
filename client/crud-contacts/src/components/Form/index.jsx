@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCrudContext } from '../../Hooks/useCrudContext';
+import { useCrudContext } from '../../hooks/useCrudContext';
 
 function Form() {
   const { handleSubmit, addName, addEmail,

@@ -1,9 +1,11 @@
 import React from 'react'
 import { Buttons } from '../Buttons'
-import { useCrudContext } from '../../Hooks/useCrudContext';
+import { useCrudContext } from '../../hooks/useCrudContext';
 
 function Table({ users }) {
-  const { editContact, deleteContact, getID } = useCrudContext()
+  const { editContact, deleteContact, getID, filterContacts, search } = useCrudContext()
+
+  const noResults = search.trim() !== '' && filterContacts.length === 0 && users.length > 0; const contactsToShow = filterContacts.length > 0 ? filterContacts : users;
 
   return (
     <div className='hidden md:block'>
@@ -18,17 +20,33 @@ function Table({ users }) {
           </tr>
         </thead>
         <tbody >
-          {users.map((user) => (
-            <tr key={user.id} className={`${getID === user.id ? 'bg-accent-green text-white' : ''}`}>
-              <td className="border px-4 py-2">{user.name}</td>
-              <td className="border px-4 py-2">{user.email}</td>
-              <td className="border px-4 py-2">{user.phone_number}</td>
-              <td className="border px-4 py-2">{user.genre}</td>
-              <td className="border px-4 py-2">
-                <Buttons handleEdit={() => editContact(user)} handleDelete={() => deleteContact(user.id)} />
-              </td>
-            </tr>
-          ))}
+          {
+            noResults ?
+              (
+                <tr>
+                  <td>No se encontraron Contactos</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              )
+              :
+              (
+                contactsToShow.map((user) => (
+                  <tr key={user.id} className={`${getID === user.id ? 'bg-accent-green text-white' : ''}`}>
+                    <td className="border px-4 py-2">{user.name}</td>
+                    <td className="border px-4 py-2">{user.email}</td>
+                    <td className="border px-4 py-2">{user.phone_number}</td>
+                    <td className="border px-4 py-2">{user.genre}</td>
+                    <td className="border px-4 py-2">
+                      <Buttons handleEdit={() => editContact(user)} handleDelete={() => deleteContact(user.id)} />
+                    </td>
+                  </tr>
+                )))
+          }
+
+          {/* {users.map()} */}
         </tbody>
 
       </table>
