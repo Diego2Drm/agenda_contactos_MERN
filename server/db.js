@@ -8,10 +8,12 @@ const {
 } = require('./config')
 
 // Connection to MySQL
-export const db = mysql.createConnection({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME,
-  port: DB_PORT,
-});
+module.exports = {
+  db: mysql.createConnection({
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_NAME,
+    port: DB_PORT,
+  })
+}
