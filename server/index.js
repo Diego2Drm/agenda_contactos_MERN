@@ -1,21 +1,11 @@
 const express = require('express')
 const cors = require('cors');
-const mysql = require('mysql2');
-require('dotenv').config();
+const { PORT } = require('./config');
+const { db } = require('./db');
 
-const password = process.env.DB_PASSWORD;
 const app = express();
 app.use(express.json());
 app.use(cors());
-
-// Connection to MySQL
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: password,
-  database: 'crud_contacts',
-  port: 3306
-});
 
 // Routes
 app.get('/', (req, res) => {
@@ -109,7 +99,7 @@ app.delete('/contacts/:id', (req, res) => {
   )
 })
 
-const PORT = process.env.PORT ?? 3000;
+
 
 app.listen(PORT, () => {
   console.log(`Server lsitening on port http://localhost:${PORT}`);
