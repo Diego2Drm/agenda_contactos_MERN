@@ -13,7 +13,8 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: password,
-  database: 'crud_contacts'
+  database: 'crud_contacts',
+  port: 3306
 });
 
 // Routes
@@ -30,6 +31,18 @@ app.post('/contacts', (req, res) => {
   if (!name?.trim() || !email?.trim() || !phone_number?.toString().trim() || !genre?.trim()) {
     return res.status(400).json({ message: "Todos los campos son obligatorios." });
   }
+
+  db.query('SELECT * FROM contact_list WHERE email = ?',
+    [email],
+    (err, result) => {
+      if (err) {
+        console.log('Error', err);
+        return res.status(500).json({ error: 'Error en el servidor"' })
+      }
+
+      if (result.length > 0) return res.status(400).json({ message: 'Este correo ya está registrado' })
+    }
+  )
 
   db.query('INSERT INTO contact_list (name,email,phone_number,genre) VALUES(?,?,?,?)', [name, email, phone_number, genre],
     (err, result) => {
